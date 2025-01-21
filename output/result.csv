@@ -1,0 +1,2 @@
+file,image type,face id,dominant 1,percent 1,dominant 2,percent 2,skin tone,tone label,accuracy(0-100)
+ELBIN.jpg,color,1,#D5A893,0.74,#7C625A,0.26,#BEA07E,CG,87.01

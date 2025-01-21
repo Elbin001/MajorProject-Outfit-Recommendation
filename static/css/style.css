@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('/static/images/home.jpg');
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+}
+
+
+header {
+    display: flex;
+    flex-direction: column; /* Arrange elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    justify-content: flex-start; /* Align content towards the top */
+    height: 30vh; /* Use partial viewport height */
+    padding: 4rem; /* Add padding around the header */
+}
+
+.logo h1 {
+    font-size: 3rem; /* Adjust heading size if needed */
+    margin: 0; /* Remove extra margin */
+    margin-bottom: 0.5rem; /* Add minimal space below the heading */
+    color: #2E4053; /* Set heading color to navy blue */
+}
+
+.container {
+    text-align: left; /* Align text to the left */
+    display: flex;
+    flex-direction: column; /* Arrange elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    margin-top: 0; /* Ensure the caption is just below the heading */
+}
+
+.container h2 {
+    margin: 0 0 1rem; /* Add space below the caption */
+    font-size: 1.5rem; /* Adjust font size if needed */
+    color: #2E4053;
+}
+
+.buttons {
+    display: flex; /* Arrange buttons horizontally */
+    flex-direction: row; /* Ensure buttons are side by side */
+    gap: 1rem; /* Add space between buttons */
+    margin-top: 1rem; /* Add space above the buttons */
+}
+
+.news-button, .personalize-button {
+    background-color: transparent; 
+    color: #2E4053; /* Set button text color to navy blue */
+    border: 1px solid #2E4053;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.news-button:hover, .personalize-button:hover {
+    border-color: rgba(255, 255, 255, 0.5); 
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 4rem;
+}
+
+

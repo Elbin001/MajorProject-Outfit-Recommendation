@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalize</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/personalize.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="back">
+      <button onclick="location.href='/';" class="back-button">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    
+    </div>
+    <div class="logo">
+      <h1 class="hepta-slab-heading">suitYourself</h1>
+    </div>
+  </header>
+
+  <main class="upload-section">
+    <div class="upload-wrapper">
+      <div class="upload-box">
+        <h2 class="page-title">Upload Your Image</h2>
+        <form action="{{ url_for('personalize') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+          <label for="image-upload" class="upload-label">
+            <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+            <p>Choose an image</p>
+          </label>
+          <input type="file" id="image-upload" name="image" accept="image/*" required>
+          <button type="submit" class="upload-button">Upload</button>
+        </form>
+
+        {% if face_shape %}
+        <div class="result-section">
+          <h4 class="face-shape"> Your Face Shape : {{ face_shape }}</h4>
+        </div>
+        {% endif %}
+      </div>
+
+
+      <div class="gender-selection">
+        <h3>Who are you?</h3>
+        <div class="gender-options">
+          <label for="male" class="gender-option">
+            <input type="radio" id="male" name="gender" value="male">
+            <span class="material-symbols-outlined gender-icon">man</span>
+            <p>Male</p>
+          </label>
+          <label for="female" class="gender-option">
+            <input type="radio" id="female" name="gender" value="female">
+            <span class="material-symbols-outlined gender-icon">woman</span>
+            <p>Female</p>
+          </label>
+        </div>
+      </div>
+
+      <div class="body-selection">
+        <h3>How do you look?</h3>
+        <div class="body-options">
+          <label for="lean" class="body-option">
+            <input type="radio" id="lean" name="body" value="lean">
+            <img src="{{ url_for('static', filename='images/lean.png') }}" alt="Lean Body" class="body-icon">
+          </label>
+          <label for="muscular" class="body-option">
+            <input type="radio" id="muscular" name="body" value="muscular">
+            <img src="{{ url_for('static', filename='images/muscular.ico') }}" alt="Muscular Body" class="body-icon">
+          </label>
+          <label for="fat" class="body-option">
+            <input type="radio" id="fat" name="body" value="fat">
+            <img src="{{ url_for('static', filename='images/fat.png') }}" alt="Fat Body" class="body-icon">
+          </label>
+        </div>
+      </div>
+
+      <div class="style-selection">
+        <h3>Select Style</h3>
+        <div class="style-options">
+          <label for="casual" class="style-option">
+            <input type="radio" id="casual" name="style" value="casual">
+            <p>Casual</p>
+          </label>
+          <label for="formal" class="style-option">
+            <input type="radio" id="formal" name="style" value="formal">
+            <p>Formal</p>
+          </label>
+          <label for="streetwear" class="style-option">
+            <input type="radio" id="streetwear" name="style" value="streetwear">
+            <p>Streetwear</p>
+          </label>
+          <label for="sporty" class="style-option">
+            <input type="radio" id="sporty" name="style" value="sporty">
+            <p>Sporty</p>
+          </label>
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <div class="outfits-button-wrapper">
+    <button class="outfits-button">Outfits for you</button>
+  </div>
+</body>
+</html>
