@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outfit Recommendations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/outfit.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Your Personalized Outfit Recommendations</h1>
+    <div class="back-button-container">
+      <button class="personalize-button" onclick="location.href='/personalize';">Personalize</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left Section -->
+    <section class="info-section">
+      <p><strong>Face Shape:</strong> {{ face_shape }}</p>
+      <p><strong>Skin Tone:</strong> {{ skin_tone }}</p>
+      <p><strong>Gender:</strong> {{ gender }}</p>
+      <p><strong>Body Shape:</strong> {{ body }}</p>
+      <p><strong>Style:</strong> {{ style }}</p>
+    </section>
+
+    <!-- Right Section -->
+    <section class="recommendations-section">
+      <h2>Recommended Outfits</h2>
+      <div id="recommendations">
+        {% for image in recommendations %}
+          <img src="{{ url_for('static', filename=image) }}" alt="Outfit">
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+
+  
+</body>
+</html>

@@ -45,7 +45,8 @@ header {
 }
 
 .back-button:hover {
-    text-decoration: underline;
+    transform: scale(1.1); /* Slight zoom effect */
+    filter: grayscale(0);
 }
 
 .page-title {
@@ -317,3 +318,18 @@ header {
     transform: scale(1.05); /* Slightly enlarge button on hover */
 }
 
+  .outfits-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #2E4053;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .outfits-button:hover {
+    background-color: #2E4053;
+  }

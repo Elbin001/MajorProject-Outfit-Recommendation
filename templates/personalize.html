@@ -13,16 +13,13 @@
     <div class="back">
       <button onclick="location.href='/';" class="back-button">
         <span class="material-symbols-outlined">arrow_back</span>
-    </button>
-    
-    </div>
-    <div class="logo">
-      <h1 class="hepta-slab-heading">suitYourself</h1>
+      </button>
     </div>
   </header>
 
   <main class="upload-section">
     <div class="upload-wrapper">
+      <!-- Upload Box -->
       <div class="upload-box">
         <h2 class="page-title">Upload Your Image</h2>
         <form action="{{ url_for('personalize') }}" method="POST" enctype="multipart/form-data" class="upload-form">
@@ -34,14 +31,23 @@
           <button type="submit" class="upload-button">Upload</button>
         </form>
 
-        {% if face_shape %}
-        <div class="result-section">
-          <h4 class="face-shape"> Your Face Shape : {{ face_shape }}</h4>
-        </div>
+        {% if uploaded %}
+        {% if faceshape_result %}
+            <p id="face-shape-result">Face Shape: {{ faceshape_result }}</p>
+        {% elif faceshape_error %}
+            <p>Error in Face Shape Detection: {{ faceshape_error }}</p>
+        {% endif %}
+        {% if main_result %}
+            <p id="skin-tone-result">{{ main_result }}</p>
+        {% elif main_error %}
+            <p>Error in Skin Tone Detection: {{ main_error }}</p>
+        {% endif %}
+        {% else %}
+        <p>No image uploaded yet.</p>
         {% endif %}
       </div>
 
-
+      <!-- Gender Selection -->
       <div class="gender-selection">
         <h3>Who are you?</h3>
         <div class="gender-options">
@@ -58,24 +64,27 @@
         </div>
       </div>
 
-      <div class="body-selection">
-        <h3>How do you look?</h3>
-        <div class="body-options">
-          <label for="lean" class="body-option">
-            <input type="radio" id="lean" name="body" value="lean">
-            <img src="{{ url_for('static', filename='images/lean.png') }}" alt="Lean Body" class="body-icon">
-          </label>
-          <label for="muscular" class="body-option">
-            <input type="radio" id="muscular" name="body" value="muscular">
-            <img src="{{ url_for('static', filename='images/muscular.ico') }}" alt="Muscular Body" class="body-icon">
-          </label>
-          <label for="fat" class="body-option">
-            <input type="radio" id="fat" name="body" value="fat">
-            <img src="{{ url_for('static', filename='images/fat.png') }}" alt="Fat Body" class="body-icon">
-          </label>
-        </div>
-      </div>
+<!-- Body Selection -->
+<div class="body-selection">
+  <h3>How do you look?</h3>
+  <div class="body-options">
+    <label for="lean" class="body-option">
+      <input type="radio" id="lean" name="body" value="lean">
+      <img src="{{ url_for('static', filename='images/lean.png') }}" alt="Lean Body" class="body-icon">
+    </label>
+    <label for="muscular" class="body-option">
+      <input type="radio" id="muscular" name="body" value="muscular">
+      <img src="{{ url_for('static', filename='images/muscular.ico') }}" alt="Athletic Body" class="body-icon">
+    </label>
+    <label for="full-figured" class="body-option">
+      <input type="radio" id="full-figured" name="body" value="full-figured">
+      <img src="{{ url_for('static', filename='images/fat.png') }}" alt="Full Figured" class="body-icon">
+    </label>
+  </div>
+</div>
 
+
+      <!-- Style Selection -->
       <div class="style-selection">
         <h3>Select Style</h3>
         <div class="style-options">
@@ -97,13 +106,44 @@
           </label>
         </div>
       </div>
-
-
     </div>
   </main>
 
   <div class="outfits-button-wrapper">
-    <button class="outfits-button">Outfits for you</button>
+    <form id="outfits-form" action="/outfit" method="POST">
+      <!-- Hidden Fields to Pass Data -->
+      <input type="hidden" id="hidden-face-shape" name="face_shape" value="">
+      <input type="hidden" id="hidden-skin-tone" name="skin_tone" value="">
+      <input type="hidden" id="hidden-gender" name="gender" value="">
+      <input type="hidden" id="hidden-body" name="body_shape" value="">
+      <input type="hidden" id="hidden-style" name="style" value="">
+      <button type="submit" class="outfits-button" id="outfits-button">Outfits for you</button>
+    </form>
   </div>
+  
+  <script>
+    document.querySelector('#outfits-button').addEventListener('click', (event) => {
+      // Prevent default button behavior (if needed)
+      event.preventDefault();
+  
+      // Capture user selections
+      const faceShape = document.querySelector('#face-shape-result')?.textContent || "Not detected";
+      const skinTone = document.querySelector('#skin-tone-result')?.textContent || "Not detected";
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || "Not selected";
+      const body = document.querySelector('input[name="body"]:checked')?.value || "Not selected"; // Ensure this works
+      const style = document.querySelector('input[name="style"]:checked')?.value || "Not selected";
+  
+      // Populate hidden fields
+      document.querySelector('#hidden-face-shape').value = faceShape;
+      document.querySelector('#hidden-skin-tone').value = skinTone;
+      document.querySelector('#hidden-gender').value = gender;
+      document.querySelector('#hidden-body').value = body;
+      document.querySelector('#hidden-style').value = style;
+  
+      // Submit the form
+      document.querySelector('#outfits-form').submit();
+    });
+  </script>
+  
 </body>
 </html>

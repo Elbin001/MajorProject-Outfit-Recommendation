@@ -174,26 +174,26 @@ for filename in os.listdir(input_folder):
 for i in range(1):
   if similarity<10:
     if angle<160:
-      print('squared shape.Jawlines are more angular')
+      print('Squared shape.')
       break
     else:
-      print('round shape.Jawlines are not that angular')
+      print('Round shape.')
       break
   if line3>line1:
     if angle<160:
-      print('triangle shape.Forehead is more wider') 
+      print('Triangle shape.') 
       break
   if ovalsimilarity<10:
-    print('diamond shape. line2 & line4 are similar and line2 is slightly larger')
+    print('Diamond shape. ')
     break
   if line4 > line2:
     if angle<160:
-      print('rectangular. face length is largest and jawline are angular ')
+      print('Rectangular.')
       break;
     else:
-      print('oblong. face length is largest and jawlines are not angular')
+      print('Oblong.')
       break;
-  print("Damn! Contact the developer")
+  print("Damn!")
 
 # Print the result to stdout
 sys.exit(0)
