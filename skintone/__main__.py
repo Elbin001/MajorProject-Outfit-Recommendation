@@ -165,7 +165,7 @@ def main():
                     #print(f"\nFace ID: {face['face_id']}")
                     #print(f"  Dominant Colors: {face['dominant_colors']}")
                     #print(f"  Skin Tone: {face['skin_tone']}")
-                    print(f"Seasonal Tone: {seasonal_tone}")
+                    print(f"{seasonal_tone}")
                     #print(f"  Accuracy: {face['accuracy']}%")
             else:
                 print("No faces detected or unable to process the image.")

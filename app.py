@@ -1,12 +1,13 @@
 from flask import Flask, request, render_template, url_for
 import os
 import subprocess
-from rec import get_recommendations  # Import the recommendation logic
+from rec import get_recommendations 
 from flask import session
 app = Flask(__name__)
 
 # Configurations
 UPLOAD_FOLDER = 'uploads'
+GENERATED_IMAGE_PATH = "static/generated_outfit.png"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -79,8 +80,37 @@ def outfit():
     gender = request.form.get('gender', "Not selected")
     body = request.form.get('body_shape', "Not selected")
     style = request.form.get('style', "Not selected")
+    action_type = request.form.get('action_type', "recommend")  # Default to 'recommend'
 
-    # Get recommendations
+    # If "Generated Outfits" is selected, run generate.py instead
+    if action_type == 'generate':
+        try:
+            # Construct a prompt using user inputs
+            prompt = f"A {style} outfit for a {gender} with a {body} body shape, {skin_tone} skin tone, and {face_shape} face shape"
+
+            # Run generate.py and pass the prompt
+            subprocess.run(['python', 'generate.py', prompt], check=True)
+
+            # Ensure the generated image is saved correctly
+            # Ensure the generated image is saved correctly
+            generated_image = GENERATED_IMAGE_PATH if os.path.exists(GENERATED_IMAGE_PATH) else None
+
+        except Exception as e:
+            generated_image = None
+            print(f"Error generating outfit: {e}")
+
+        # Render generate.html with user data and generated image
+        return render_template(
+            'generate.html',
+            face_shape=face_shape,
+            skin_tone=skin_tone,
+            gender=gender,
+            body=body,
+            style=style,
+            generated_image=generated_image
+        )
+
+    # If "Recommended Outfits" is selected, run get_recommendations
     recommendations = get_recommendations(gender, skin_tone, body, style)
 
     return render_template(

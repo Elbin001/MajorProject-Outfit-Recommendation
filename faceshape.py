@@ -5,7 +5,6 @@ import os
 import sys
 import math
 from sklearn.cluster import KMeans
-import subprocess
 #load the image
 input_folder = r"D:\MajorProject-Outfit-Recommendation\uploads"
 face_cascade_path = "haarcascade_frontalface_default.xml"

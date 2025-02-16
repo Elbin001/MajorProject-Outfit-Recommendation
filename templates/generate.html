@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Outfits</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/outfit.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Your Personalized Outfit</h1>
+    <div class="back-button-container">
+      <button class="personalize-button" onclick="location.href='/personalize';">Personalize</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left Section -->
+    <section class="info-section">
+      <p><strong>Face Shape:</strong> {{ face_shape }}</p>
+      <p><strong>Skin Tone:</strong> {{ skin_tone }}</p>
+      <p><strong>Gender:</strong> {{ gender }}</p>
+      <p><strong>Body Shape:</strong> {{ body }}</p>
+      <p><strong>Style:</strong> {{ style }}</p>
+    </section>
+
+    <!-- Right Section -->
+    <section class="generated-section">
+      <h2>Generated Outfit</h2>
+      {% if generated_image %}
+        <img src="{{ url_for('static', filename='generated_outfit.png') }}" alt="Generated Outfit">
+      {% else %}
+        <p>Error generating outfit. Please try again.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

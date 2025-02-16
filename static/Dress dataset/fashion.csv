@@ -1,5 +1,9 @@
 Image,gender,skintone,body shape,style
-img1.jpg,female,#BEA07E,lean,casual;street
-img2.jpg,female,#BEA07E,lean,casual
-img3.jpg,female,#BEA07E,lean,casual
-img4.jpg,female,#BEA07E,lean,casual
+img1.jpg,female,Soft Autumn(soft and warm beige);,lean,casual;formal
+img2.jpg,female,Warm Spring(golden and warm);Cool Summer(light and cool pink-beige),lean,casual
+img3.jpg,female,Cool Summer(light and cool pink-beige);Light Summer(soft pink undertones),lean,casual
+img4.jpg,female,Soft Autumn(soft and warm beige);,lean,formal;casul
+img5.jpg,female,"Light Summer(soft pink undertones);Light Summer(bright, cool, and soft ivory)",lean,casual;street wear
+img6.jpg,female,"Soft Autumn(muted, warm, medium brown);Warm Autumn(golden undertones in brown)",lean,formal;casul
+img7.jpg,female,"Light Summer(soft pink undertones);Light Summer(bright, cool, and soft ivory)",lean,street wear
+img8.jpg,female,"Soft Autumn(muted, warm, medium brown);Warm Autumn(golden undertones in brown)",lean,street wear

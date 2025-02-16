@@ -297,22 +297,25 @@ header {
 .outfits-button-wrapper {
     display: flex;
     justify-content: center;
-    position: fixed; /* Fix the position at the bottom */
-    bottom: 12rem; /* Distance from the bottom of the page */
-    width: 100%; /* Ensure the wrapper spans the full width */
-}
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed */
+  }
 
-.outfits-button {
-    padding: 1rem 2rem; /* Button size */
-    font-size: 1rem; /* Font size for the button text */
-    color: #ffffff; /* White text */
-    background-color: #2E4053; /* Navy blue background */
-    border: none; /* Remove border */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-}
+  .button-container {
+    display: flex;
+    gap: 30px; /* Space between buttons */
+  }
 
+  .outfits-button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
 .outfits-button:hover {
     background-color: #1b2a38; /* Darker navy blue on hover */
     transform: scale(1.05); /* Slightly enlarge button on hover */
@@ -332,4 +335,19 @@ header {
 
   .outfits-button:hover {
     background-color: #2E4053;
+  }
+
+  .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }

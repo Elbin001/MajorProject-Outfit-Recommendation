@@ -28,8 +28,15 @@
             <p>Choose an image</p>
           </label>
           <input type="file" id="image-upload" name="image" accept="image/*" required>
-          <button type="submit" class="upload-button">Upload</button>
+              <!-- Container to display the image name -->
+    <div id="image-name-container" style="margin-top: 10px; font-size: 14px; color: #555;">
+      <span id="image-name"></span>
+    </div>
+    <button type="submit" class="upload-button" id="analyze-button">Analyze</button>
         </form>
+
+          <!-- Container to display the uploaded image -->
+
 
         {% if uploaded %}
         {% if faceshape_result %}
@@ -38,12 +45,12 @@
             <p>Error in Face Shape Detection: {{ faceshape_error }}</p>
         {% endif %}
         {% if main_result %}
-            <p id="skin-tone-result">{{ main_result }}</p>
+            <p id="skin-tone-result">Skin tone : {{ main_result }}</p>
         {% elif main_error %}
             <p>Error in Skin Tone Detection: {{ main_error }}</p>
         {% endif %}
         {% else %}
-        <p>No image uploaded yet.</p>
+        <p>No image analyzed yet.</p>
         {% endif %}
       </div>
 
@@ -117,31 +124,80 @@
       <input type="hidden" id="hidden-gender" name="gender" value="">
       <input type="hidden" id="hidden-body" name="body_shape" value="">
       <input type="hidden" id="hidden-style" name="style" value="">
-      <button type="submit" class="outfits-button" id="outfits-button">Outfits for you</button>
+      <!-- Add a hidden field to differentiate actions -->
+      <input type="hidden" id="action-type" name="action_type" value="">
     </form>
+    <div class="button-container">
+      <button type="submit" class="outfits-button" id="outfits-button">Recommend Outfits</button>
+      <button type="button" class="outfits-button" id="generate-button">Generat Outfit</button>
+    </div>
+  </div>
+
+  <div id="loading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="text-align: center;">
+      <div class="spinner"></div>
+      <p>Please wait...</p>
+    </div>
   </div>
   
   <script>
-    document.querySelector('#outfits-button').addEventListener('click', (event) => {
-      // Prevent default button behavior (if needed)
-      event.preventDefault();
-  
-      // Capture user selections
-      const faceShape = document.querySelector('#face-shape-result')?.textContent || "Not detected";
-      const skinTone = document.querySelector('#skin-tone-result')?.textContent || "Not detected";
-      const gender = document.querySelector('input[name="gender"]:checked')?.value || "Not selected";
-      const body = document.querySelector('input[name="body"]:checked')?.value || "Not selected"; // Ensure this works
-      const style = document.querySelector('input[name="style"]:checked')?.value || "Not selected";
-  
-      // Populate hidden fields
-      document.querySelector('#hidden-face-shape').value = faceShape;
-      document.querySelector('#hidden-skin-tone').value = skinTone;
-      document.querySelector('#hidden-gender').value = gender;
-      document.querySelector('#hidden-body').value = body;
-      document.querySelector('#hidden-style').value = style;
-  
-      // Submit the form
-      document.querySelector('#outfits-form').submit();
+
+  // Function to display the uploaded image name
+  document.getElementById('image-upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const imageNameContainer = document.getElementById('image-name');
+
+    if (file) {
+      // Display the file name
+      imageNameContainer.textContent = `Selected file: ${file.name}`;
+    } else {
+      // Clear the file name if no file is selected
+      imageNameContainer.textContent = '';
+    }
+  });
+
+  function showLoading() {
+      document.getElementById('loading').style.display = 'flex';
+    }
+
+     // Function to populate hidden fields and set action type
+  function submitForm(actionType) {
+    const faceShapeText = document.querySelector('#face-shape-result')?.textContent || "Not detected";
+    const skinToneText = document.querySelector('#skin-tone-result')?.textContent || "Not detected";
+
+    // Extract only the value after ":" if present
+    const faceShape = faceShapeText.includes(":") ? faceShapeText.split(":")[1].trim() : faceShapeText;
+    const skinTone = skinToneText.includes(":") ? skinToneText.split(":")[1].trim() : skinToneText;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || "Not selected";
+    const body = document.querySelector('input[name="body"]:checked')?.value || "Not selected";
+    const style = document.querySelector('input[name="style"]:checked')?.value || "Not selected";
+
+    document.querySelector('#hidden-face-shape').value = faceShape;
+    document.querySelector('#hidden-skin-tone').value = skinTone;
+    document.querySelector('#hidden-gender').value = gender;
+    document.querySelector('#hidden-body').value = body;
+    document.querySelector('#hidden-style').value = style;
+    document.querySelector('#action-type').value = actionType;
+
+    showLoading();
+    document.querySelector('#outfits-form').submit();
+  }
+
+  // Handle "Recommended Outfits" button click
+  document.querySelector('#outfits-button').addEventListener('click', (event) => {
+    event.preventDefault();
+    submitForm('recommend');
+  });
+
+  // Handle "Generated Outfits" button click
+  document.querySelector('#generate-button').addEventListener('click', (event) => {
+    event.preventDefault();
+    submitForm('generate');
+  });
+
+  document.querySelector('#analyze-button').addEventListener('click', () => {
+      // Show loading indicator
+      showLoading();
     });
   </script>
   
